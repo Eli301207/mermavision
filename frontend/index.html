@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermavision - Sistema Completo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. PRODUCTOS -->
+    <div class="contenedor">
+        <h1>Inventario de Productos</h1>
+        <p class="alerta-error" id="mensaje-error">Error: No se pudo conectar al servidor.</p>
+        <div class="caja-formulario">
+            <h3>Agregar Nuevo Producto</h3>
+            <form id="form-producto">
+                <input type="text" id="codigo" placeholder="Código (ej. PR-003)" required>
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="number" id="precio" step="0.01" placeholder="Precio ($)" required>
+                <input type="number" id="stock" placeholder="Stock Actual" required>
+                <input type="number" id="minimo" placeholder="Stock Mínimo" required>
+                <input type="number" id="categoria" placeholder="ID Categoría" required>
+                <button type="submit" class="btn-guardar">Guardar Producto</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Código</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Mínimo</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tabla-productos"><tr><td colspan="7">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 2. CATEGORÍAS -->
+    <div class="contenedor">
+        <h1>Control de Categorías</h1>
+        <div class="caja-formulario">
+            <h3>Agregar Nueva Categoría</h3>
+            <form id="form-categoria">
+                <input type="text" id="cat-nombre" placeholder="Nombre" required>
+                <input type="text" id="cat-descripcion" placeholder="Descripción" required>
+                <button type="submit" class="btn-guardar">Guardar Categoría</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tabla-categorias"><tr><td colspan="4">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 3. PROVEEDORES -->
+    <div class="contenedor">
+        <h1>Control de Proveedores</h1>
+        <div class="caja-formulario">
+            <h3>Agregar Nuevo Proveedor</h3>
+            <form id="form-proveedor">
+                <input type="text" id="prov-nombre" placeholder="Nombre" required>
+                <input type="text" id="prov-numero" placeholder="Teléfono" required>
+                <input type="email" id="prov-correo" placeholder="Correo" required>
+                <input type="text" id="prov-direccion" placeholder="Dirección" required>
+                <button type="submit" class="btn-guardar">Guardar Proveedor</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Dirección</th></tr>
+            </thead>
+            <tbody id="tabla-proveedores"><tr><td colspan="5">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 4. PEDIDOS -->
+    <div class="contenedor">
+        <h1>Control de Pedidos</h1>
+        <div class="caja-formulario">
+            <h3>Registrar Nuevo Pedido</h3>
+            <form id="form-pedido">
+                <input type="number" id="ped-proveedor" placeholder="ID Proveedor" required>
+                <input type="datetime-local" id="ped-llegada" placeholder="Fecha Llegada">
+                <button type="submit" class="btn-guardar">Registrar Pedido</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID Pedido</th><th>Proveedor</th><th>Fecha Pedido</th><th>Fecha Llegada</th></tr>
+            </thead>
+            <tbody id="tabla-pedidos"><tr><td colspan="4">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 5. LOTES -->
+    <div class="contenedor">
+        <h1>Control de Lotes</h1>
+        <div class="caja-formulario">
+            <h3>Registrar Nuevo Lote</h3>
+            <form id="form-lote">
+                <input type="number" id="lote-producto" placeholder="ID Producto" required>
+                <input type="number" id="lote-pedido" placeholder="ID Pedido (opcional)">
+                <input type="number" id="lote-costo" step="0.01" placeholder="Costo Compra ($)" required>
+                <input type="number" id="lote-cant-ini" placeholder="Cant. Inicial" required>
+                <input type="number" id="lote-cant-disp" placeholder="Cant. Disponible" required>
+                <input type="date" id="lote-caducidad" required>
+                <button type="submit" class="btn-guardar">Guardar Lote</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID Lote</th><th>ID Producto</th><th>Costo Compra</th><th>Disponible</th><th>Caducidad</th></tr>
+            </thead>
+            <tbody id="tabla-lotes"><tr><td colspan="5">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 6. USUARIOS -->
+    <div class="contenedor">
+        <h1>Control de Usuarios</h1>
+        <div class="caja-formulario">
+            <h3>Agregar Nuevo Usuario</h3>
+            <form id="form-usuario">
+                <input type="text" id="usu-nombre" placeholder="Nombre completo" required>
+                <input type="password" id="usu-nip" placeholder="NIP (4 dígitos)" maxlength="4" required>
+                <input type="text" id="usu-telefono" placeholder="Teléfono" required>
+                <input type="text" id="usu-rfc" placeholder="RFC" required>
+                <button type="submit" class="btn-guardar">Guardar Usuario</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>RFC</th></tr>
+            </thead>
+            <tbody id="tabla-usuarios"><tr><td colspan="4">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 7. CAJA SESIONES -->
+    <div class="contenedor">
+        <h1>Sesiones de Caja</h1>
+        <div class="caja-formulario">
+            <h3>Abrir Sesión de Caja</h3>
+            <form id="form-caja">
+                <input type="number" id="caja-usuario" placeholder="ID Usuario" required>
+                <input type="number" id="caja-monto" step="0.01" placeholder="Monto Inicial ($)" required>
+                <button type="submit" class="btn-guardar">Abrir Caja</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID Sesión</th><th>Usuario</th><th>Monto Inicial</th><th>Monto Final</th><th>Apertura</th><th>Cierre</th></tr>
+            </thead>
+            <tbody id="tabla-caja"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 8. VENTAS -->
+    <div class="contenedor">
+        <h1>Control de Ventas</h1>
+        <div class="caja-formulario">
+            <h3>Registrar Venta</h3>
+            <form id="form-venta">
+                <input type="number" id="venta-usuario" placeholder="ID Usuario" required>
+                <input type="number" id="venta-sesion" placeholder="ID Sesión Caja" required>
+                <input type="number" id="venta-total" step="0.01" placeholder="Total ($)" required>
+                <input type="number" id="venta-pago" step="0.01" placeholder="Monto Pago ($)" required>
+                <input type="number" id="venta-cambio" step="0.01" placeholder="Cambio ($)" required>
+                <button type="submit" class="btn-guardar">Registrar Venta</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID Venta</th><th>Usuario</th><th>Fecha</th><th>Total</th><th>Pago</th><th>Cambio</th></tr>
+            </thead>
+            <tbody id="tabla-ventas"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 9. DETALLE DE VENTAS -->
+    <div class="contenedor">
+        <h1>Detalle de Ventas</h1>
+        <div class="caja-formulario">
+            <h3>Agregar Producto a Venta</h3>
+            <form id="form-detalle-venta">
+                <input type="number" id="dv-venta" placeholder="ID Venta" required>
+                <input type="number" id="dv-producto" placeholder="ID Producto" required>
+                <input type="number" id="dv-lote" placeholder="ID Lote (opcional)">
+                <input type="number" id="dv-cantidad" placeholder="Cantidad" required>
+                <input type="number" id="dv-precio" step="0.01" placeholder="Precio Unitario ($)" required>
+                <button type="submit" class="btn-guardar">Guardar Detalle</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID Detalle</th><th>ID Venta</th><th>Producto</th><th>Lote</th><th>Cantidad</th><th>Precio U.</th><th>Subtotal</th></tr>
+            </thead>
+            <tbody id="tabla-detalle-ventas"><tr><td colspan="7">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 10. MERMAS -->
+    <div class="contenedor">
+        <h1>Control de Mermas</h1>
+        <div class="caja-formulario">
+            <h3>Registrar Nueva Merma</h3>
+            <form id="form-merma">
+                <input type="number" id="merma-producto" placeholder="ID Producto" required>
+                <input type="number" id="merma-lote" placeholder="ID Lote" required>
+                <input type="number" id="merma-usuario" placeholder="ID Usuario" required>
+                <input type="number" id="merma-autoriza" placeholder="ID Autorizador">
+                <input type="number" id="merma-cantidad" placeholder="Cantidad" required>
+                <input type="number" id="merma-costo" step="0.01" placeholder="Costo Pérdida ($)" required>
+                <input type="text" id="merma-obs" placeholder="Observaciones" required>
+                <button type="submit" class="btn-guardar">Registrar Merma</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Producto</th><th>Cantidad</th><th>Costo</th><th>Fecha</th><th>Observaciones</th></tr>
+            </thead>
+            <tbody id="tabla-mermas"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 11. TURNOS Y ASISTENCIAS -->
+    <div class="contenedor">
+        <h1>Control de Asistencias y Turnos</h1>
+        <div class="caja-formulario" style="display: flex; gap: 20px;">
+            <form id="form-turno" style="flex:1;">
+                <h3>Registrar Turno</h3>
+                <input type="time" id="turno-entrada" required>
+                <input type="time" id="turno-salida" required>
+                <button type="submit" class="btn-guardar">Guardar Turno</button>
+            </form>
+            <form id="form-asistencia" style="flex:1;">
+                <h3>Registrar Asistencia</h3>
+                <input type="number" id="asis-usuario" placeholder="ID Usuario" required>
+                <input type="number" id="asis-turno" placeholder="ID Turno" required>
+                <input type="date" id="asis-fecha" required>
+                <button type="submit" class="btn-guardar">Guardar Asistencia</button>
+            </form>
+        </div>
+        <table style="margin-bottom: 20px;">
+            <thead><tr><th>ID Turno</th><th>Entrada Programada</th><th>Salida Programada</th></tr></thead>
+            <tbody id="tabla-turnos"><tr><td colspan="3">Cargando...</td></tr></tbody>
+        </table>
+        <table>
+            <thead><tr><th>ID Asistencia</th><th>Usuario</th><th>ID Turno</th><th>Fecha</th><th>Entrada</th></tr></thead>
+            <tbody id="tabla-asistencias"><tr><td colspan="5">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- 12. HISTORIAL DE PRECIOS -->
+    <div class="contenedor">
+        <h1>Historial de Precios</h1>
+        <div class="caja-formulario">
+            <h3>Registrar Cambio de Precio</h3>
+            <form id="form-historial">
+                <input type="number" id="hist-producto" placeholder="ID Producto" required>
+                <input type="number" id="hist-anterior" step="0.01" placeholder="Precio Anterior ($)" required>
+                <input type="number" id="hist-nuevo" step="0.01" placeholder="Precio Nuevo ($)" required>
+                <input type="number" id="hist-usuario" placeholder="ID Usuario Modificó" required>
+                <button type="submit" class="btn-guardar">Registrar Historial</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Producto</th><th>Anterior</th><th>Nuevo</th><th>Fecha</th><th>Modificado Por</th></tr>
+            </thead>
+            <tbody id="tabla-historial"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
