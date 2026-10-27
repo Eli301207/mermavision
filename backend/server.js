@@ -11,7 +11,7 @@ const db = mysql.createConnection({
   host: 'gateway01.us-west-2.prod.aws.tidbcloud.com',
   port: 4000,
   user: '3sqteT4ameX4x2V.root',
-  password: '5zk6JtfeTHBH6V0u', // Cambia esto por tu contraseña real
+  password: '5zk6JtfeTHBH6V0u', 
   database: 'mermavision',
   ssl: {
     minVersion: 'TLSv1.2',
